@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+    <link rel="stylesheet" href="../styles/mainStyle.css">
+    <link rel="stylesheet" href="../styles/salesStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
+    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body>
+
+<div id="main">
+    <div id="app_area">
+        <div id="window">
+                <form action="/sale/main" method="post">
+            <!--header-->
+            <div th:insert="~{common/header}"></div>
+            <!--navbar-->
+            <div class="mid-container">
+                <div th:insert="~{common/navbar}"></div>
+
+                <div>
+
+                    <div class="pieG" id="pie"></div>
+
+                    <div class="barG" id="bar"></div>
+
+                    <div class="memberSale" id="pie2">
+                            <table>
+                                <tr>
+                                    <h2>직원 매출</h2>
+                                </tr>
+                                <tr th:each="empAndUser:${employeeAndUserDTO}">
+                                    <td>
+                                        <img th:src="${empAndUser.userDTO.userPic}" style="max-width: 50px; max-height: 50px;"/>
+                                    </td>
+                                    <td class="time" th:text="${empAndUser.userDTO.userName}"></td>
+                                    <td class="td" th:text="${empAndUser.total1}+'원'"></td>
+<!--                                    <td th:text="${pass.gpCount}"></td>-->
+                                </tr>
+                            </table>
+                    </div>
+
+                    <div class="salesData">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>이름</th>
+                                    <th>이용권</th>
+                                    <th>유효 기간</th>
+                                    <th>결제 금액</th>
+                                    <th>결제 방식</th>
+                                    <th>시 간</th>
+                                </tr>
+                                <tr th:each="sale:${PAPQList}">
+                                    <td >
+                                        <img th:src="${sale.userDTO.userPic}" style="max-width: 50px; max-height: 50px;"/>
+                                    </td>
+                                    <td class="time" th:text="${sale.userDTO.userName}"></td>
+                                    <td class="td" th:text="${sale.passQualDTO.pqName}"></td>
+                                    <td class="td" th:text="${#dates.format(sale.passStart, 'yyyy-MM-dd')
+                                 + ' ~ '
+                                 + #dates.format(sale.passEnd, 'yyyy-MM-dd')}"></td>
+                                    <td class="td" th:text="${sale.passQualDTO.pqPrice}+'원'"></td>
+                                    <td class="time2" th:text="${sale.saleDTO.salesMethod}"></td>
+                                    <td class="time2" th:text="${#dates.format(sale.passStart, 'MM.dd ')}
+                                 +${#dates.format(sale.saleDTO.salesDate, 'a HH:mm')}"></td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--footer-->
+            <div th:insert="~{common/footer}"></div>
+                </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var dom = document.getElementById('pie');
+    var myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+
+    function fetchDataForPieChart() {
+        fetch('/sale/passDataPie')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('파이 차트 데이터를 가져오지 못했습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var PT = data.ptCount;
+                var GX = data.gxCount;
+                var GP = data.gpCount;
+                var SUM = PT + GX + GP;
+                if (SUM === 0) {
+                    throw new Error('파이 차트를 위한 데이터가 없습니다.');
+                }
+                var result = (PT / SUM) * 100;
+                var result2 = (GX / SUM) * 100;
+                var result3 = (GP / SUM) * 100;
+
+                var option = {
+                    title: {
+                        text: '이용권 현황',
+                        left: 'center',
+                        top: 10,
+                        textStyle: {
+                            fontSize: 24,
+                            fontWeight: 'bold'}
+                        },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        top: '92%',
+                        left: 'center',
+                    },
+                    series: [
+                        {
+                            name: '이용권',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: false,
+                            seriesLayoutBy: 'row',
+                            itemStyle: {
+                                borderRadius: 10,
+                                borderColor: '#fff',
+                                borderWidth: 2
+                            },
+                            label: {
+                                show: true,
+                                position: 'middle',
+                                formatter: function(params) {
+                                    var dataName = params.data.name;
+                                    var dataValue = params.data.value;
+                                    var percent = params.percent.toFixed(2);
+                                    var PT = data.ptCount;
+                                    var GX = data.gxCount;
+                                    var GP = data.gpCount;
+                                    if (dataName === 'PT') {
+                                        return PT + '개, ' + percent + '%';
+                                    } else if (dataName === 'GX') {
+                                        return  GX + '개, ' + percent + '%';
+                                    } else if (dataName === '일반') {
+                                        return GP + '개, ' + percent + '%';
+                                    }
+                                }
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: 16,
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: true,
+                            },
+                            data: [
+                                { value: data.ptCount, name: 'PT' },
+                                { value: data.gxCount, name: 'GX' },
+                                { value: data.gpCount, name: '일반' }
+                            ]
+                        }
+                    ]
+            };
+                console.log(data)
+                myChart.setOption(option);
+            })
+            .catch(error => {
+                console.error('파이 차트 데이터를 가져오는 중 오류 발생:', error.message);
+            });
+    }
+    fetchDataForPieChart();
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    var dom = document.getElementById('bar');
+    var myChart2 = echarts.init(dom, null, {
+        renderer: 'canvas2',
+        useDirtyRect: false
+    });
+
+    function fetchDataForBarChart() {
+        fetch('/sale/passDataBar')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('월별 매출 데이터를 가져오지 못했습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var monthData = data.map(item => item.month);
+                var totalData = data.map(item => item.total);
+
+                var option = {
+                    title: {
+                        text: '매출 현황',
+                        left: 'center',
+                        top: 10,
+                        textStyle: {
+                            fontSize: 24,
+                            fontWeight: 'bold'}
+                    },
+                    grid: {
+                        left: '10px',
+                        right: '10px',
+                        bottom: '10px',
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: monthData,
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 30
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: function (value) {
+                                if (value >= 10000) {
+                                    return (value / 10000) + '만';
+                                } else {
+                                    return value;
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        data: totalData,
+                        type: 'bar',
+                        label: {
+                            show: false,
+                            position: 'top',
+                            color: '#000'
+                        }
+                    }]
+                };
+                myChart2.setOption(option);
+            })
+            .catch(error => {
+                console.error('월별 매출 데이터를 가져오는 중 오류가 발생했습니다:', error);
+            });
+    }
+
+    fetchDataForBarChart();
+    window.addEventListener('resize', () => {
+        myChart2.resize();
+    });
+</script>
+
+
+
+</body>
+</html>
