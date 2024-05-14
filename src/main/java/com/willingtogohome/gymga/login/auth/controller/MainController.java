@@ -28,8 +28,23 @@ public class MainController {
     @GetMapping(value = "/login")
     public void login(){}
 
-    @GetMapping("/login/auth/success")
-    public void success(){}
+    @GetMapping(value = "/login/auth/fail")
+    public ModelAndView loginFail(ModelAndView mv, @RequestParam String message) {
+
+        mv.addObject("message", message);
+        mv.setViewName("/login/auth/fail");
+
+        return mv;
+    }
+
+    @GetMapping(value = "/main")
+    public String main(){
+        return "main";
+    }
+
+    @GetMapping(value = "/login/auth/find")
+    public void find(){}
+
 
 
 //    @GetMapping("/user/user")

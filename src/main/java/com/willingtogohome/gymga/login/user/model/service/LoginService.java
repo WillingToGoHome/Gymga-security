@@ -15,12 +15,12 @@ public class LoginService {
     @Autowired
     private LoginMapper loginMapper;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public int regist(RegistDTO registDTO) {
-//        registDTO.setUserPwd(passwordEncoder.encode(registDTO.getUserPwd()));
-        registDTO.setUserPwd(registDTO.getUserPwd());
+        registDTO.setUserPwd(passwordEncoder.encode(registDTO.getUserPwd()));
+//        registDTO.setUserPwd(registDTO.getUserPwd());
 
         int result = 0;
 

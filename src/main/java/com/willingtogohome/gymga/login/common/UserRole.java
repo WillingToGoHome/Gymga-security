@@ -2,8 +2,8 @@ package com.willingtogohome.gymga.login.common;
 
 public enum UserRole {
 
-    ADMIN("대표"),
-    USER("직원");
+    ADMIN("ADMIN"),
+    USER("USER");
 
     private String role;
 

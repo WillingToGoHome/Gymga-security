@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -32,20 +32,15 @@
 
     <div id="box2">
         <div id="right">
-            <div sec:authorize="hasAnyAuthority('대표')">
-                <h1>대표페이지</h1>
-            </div>
-            <div sec:authorize="hasAnyAuthority('직원')">
-                <h1>직원페이지</h1>
-            </div>
+
             <h3 class="login">Log In</h3>
             <form th:action="@{/login}" method="post">
-                <input type="text" id="userId" value="ID" name="user" placeholder="아이디를 입력해주세요"><br>
-                <input type="password" id="userPwd" value="Password" name="pass" placeholder="비밀번호를 입력해주세요"><br>
+                <input type="text" id="userId" value name="user" placeholder="아이디를 입력해주세요"><br>
+                <input type="password" id="userPwd" value name="pass" placeholder="비밀번호를 입력해주세요"><br>
                 <button type="submit" id="loginbtn">Sign in</button>
             </form>
 
-            <a href="auth/find" class="find">아이디/비밀번호 찾기</a>
+            <a href="/login/auth/find" class="find">아이디/비밀번호 찾기</a>
             <p class="regdes">회원이 아니신가요? </p>
             <div class="buttonBox">
                 <button class="registButton">계정만들기</button>
@@ -58,7 +53,7 @@
                             <div class="checks2" id="textBox0">
                                 <input type="checkbox" id="chk_all" value="1" name="chk_all">
                                 <label for="chk_all">전체 약관 동의</label>
-                                <hr style="margin-right: 20%; margin-top: 0">
+                                <hr style="margin-top: 0; margin-left: 0; width: 612px">
                             </div>
                             <section class="term">
                                 <div class="checks" id="textBox1">
@@ -331,8 +326,8 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                             </th>
                                             <td>
                                                 <select name="role" id="reg_role" class="reg_input" required>
-                                                    <option value="대표">대표</option>
-                                                    <option value="직원">직원</option>
+                                                    <option value="ADMIN">대표</option>
+                                                    <option value="USER">직원</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -353,7 +348,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                     <div class="modalContainer3">
                         <div class="modalContent3">
                             <div class="modalHeader">
-                                <img src="/images/chk2.png">
+                                <img src="/images/chk2.png" class="endImg">
                             </div>
                             <p class="des7">회원 가입 신청이 완료되었습니다.</p>
                             <p class="des8">Gym家에서 검토 / 승인 후 <br> 로그인 가능합니다. </p>
@@ -365,8 +360,8 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
             <div class="connect">
                 <div class="desBox">
                     <p class="des4">Connect to</p>
-                    <p class="des5">02) 000 - 0000</p>
-                    <p class="des6">gymga@gmail.com</p>
+                    <span class="des5">02) 000 - 0000</span>
+                    <span class="des6">gymga@gmail.com</span>
                 </div>
             </div>
         </div>
@@ -476,23 +471,5 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
         });
     });
 </script>
-
-<!--<div class="modal" id="registerModal3" tabindex="-1" role="dialog" aria-labelledby="registerModal3">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="registerModal3Label">회원 가입 신청이 완료되었습니다.</h5>
-            </div>
-            <div class="modal-body">
-                <p id="modalMessage">
-                    Gym家에서 검토 / 승인 후 <br>
-                    로그인 가능합니다.
-                </p>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
-    </div>-->
 </body>
 </html>

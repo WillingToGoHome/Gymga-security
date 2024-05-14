@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/styles/FindStyle.css">
+</head>
+<body>
+    <div class="findBox">
+        <div class="findContainer">
+            <div class="findHeader">
+<!--                <div class="headerBox">-->
+<!--                        <img src="/img/findBack.png">-->
+<!--                    <div class="logo">-->
+<!--                        <p class="logo1">Gym</p>-->
+<!--                        <p class="logo2">家</p>-->
+<!--                    </div>-->
+<!--                        <h3 class="findIdPwd">아이디 / 비밀번호 찾기</h3>-->
+<!--                </div>-->
+            </div>
+            <div class="findId">
+                <button type="button" id="findIdBtn">아이디찾기</button>
+                <button type="button" id="findPwdBtn">비밀번호찾기</button>
+            </div>
+            <form id="findForm" th:action="@{/auth/find}" method="post">
+                <div class="form-group">
+                    가입 시 등록한 이름, 휴대폰 번호를 입력해주세요.
+                    <hr>
+                    <label th:for="userName" class="name">
+                        이름
+                    </label>
+                    <input type="text" name="userName" class="name1" required><br>
+                    <label th:for="userPhone" class="phone">
+                        휴대폰번호
+                    </label>
+                    <input type="tel" name="userPhone" class="phone1" required><br>
+                </div>
+            </form>
+            <div class="buttonBox">
+                <button class="findIdBtn">아이디 찾기</button>
+                <div class="modalContainer">
+                    <div class="modalContent">
+                        <div class="textBox">
+                            <!--<p class="modalText1"><span th:text="${user.name}"></span>님이 선택되었습니다</p>-->
+                            <p class="modalText2">정말 삭제하시겠습니까?</p>
+                        </div>
+                        <div class="modalButtonBox">
+                            <button class="escButton" value="로그인하기"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 아이디찾기 클릭 시 나타나는 모달 창 -->
+<script>
+    $(document).ready(function() {
+
+
+        $(".findIdBtn").click(function() {
+            $(this).siblings(".modalContainer").show();
+        });
+
+        $(".escButton").click(function() {
+            $(this).closest(".modalContainer").hide();
+        });
+    });
+</script>
+</body>
+</html>

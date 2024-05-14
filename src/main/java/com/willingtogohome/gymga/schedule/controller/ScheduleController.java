@@ -19,10 +19,10 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @GetMapping(value = {"/", "/main"})
+   /* @GetMapping(value = {"/", "/main"})
     public String main() {
         return "main";
-    }
+    }*/
 
     // 일정 전체 조회
     @GetMapping("/schedule/schedulemain")
