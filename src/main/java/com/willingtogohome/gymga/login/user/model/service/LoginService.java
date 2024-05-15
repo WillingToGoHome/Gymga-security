@@ -65,4 +65,15 @@ public class LoginService {
         }
         return result;
     }
+
+    public String check_id(String userId) {
+        String result = "";
+
+        try {
+            result = loginMapper.check_id(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

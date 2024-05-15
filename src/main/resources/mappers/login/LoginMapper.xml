@@ -51,8 +51,8 @@
     </insert>
 
     <!-- 아이디 중복체크 -->
-    <select id="idCheck" resultType="int">
-        SELECT COUNT(*)
+    <select id="check_id" resultType="String">
+        SELECT USER_ID
         FROM USERDB
         WHERE USERID = #{userId}
     </select>

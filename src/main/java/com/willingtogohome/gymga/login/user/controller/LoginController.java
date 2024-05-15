@@ -1,5 +1,6 @@
 package com.willingtogohome.gymga.login.user.controller;
 
+import com.willingtogohome.gymga.login.user.model.dto.LoginDTO;
 import com.willingtogohome.gymga.login.user.model.dto.RegistDTO;
 import com.willingtogohome.gymga.login.user.model.service.LoginService;
 import org.apache.ibatis.annotations.Param;
@@ -60,4 +61,12 @@ public class LoginController {
         System.out.println(userPhone);
         return  result;
     }
+    @RequestMapping(value = "/login/idCheck", method = RequestMethod.POST)
+    @ResponseBody
+    public String check_id(String userId)  {
+        String result = loginService.check_id(userId);
+        System.out.println("userId" + userId);
+        return result;
+    }
+
 }

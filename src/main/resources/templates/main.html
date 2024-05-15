@@ -21,17 +21,16 @@
         <!--Main Start-->
         <div class="main-container">
             <!--Navbar Start-->
-            <div sec:authorize="hasAnyAuthority('ADMIN')">
-                <h1>대표페이지</h1>
-            </div>
-            <div sec:authorize="hasAnyAuthority('USER')">
-                <h1>직원페이지</h1>
-            </div>
             <div th:include="common/navbar"></div>
             <!--Navbar End-->
             <!--개인 작업 시작-->
             <div class="my-style">
-                작업공간
+                <div sec:authorize="hasAnyAuthority('ADMIN')">
+                    <h1>대표페이지</h1>
+                </div>
+                <div sec:authorize="hasAnyAuthority('USER')">
+                    <h1>직원페이지</h1>
+                </div>
             </div>
             <!--개인 작업 종료-->
         </div>

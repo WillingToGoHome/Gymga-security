@@ -39,9 +39,4 @@ public class MainController {
         return "main";
     }
 
-//    @GetMapping(value = "/login/auth/find")
-//    public void find(){}
-
-
-
 }

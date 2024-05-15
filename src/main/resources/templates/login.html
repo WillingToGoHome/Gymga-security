@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome to GymGa</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <link rel="stylesheet" href="/styles/LoginStyle.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 </head>
 <body>
@@ -49,7 +52,7 @@
                         <div class="modalHeader">
                             <h3 class="modalText1">약관동의 (Gym 家 사이트)</h3>
                         </div>
-                        <form name="fregister" id="fregister" onsubmit="return fregister_submit(this);" autocomplete="off">
+                        <form name="fregister" id="fregister" autocomplete="off">
                             <div class="checks2" id="textBox0">
                                 <input type="checkbox" id="chk_all" value="1" name="chk_all">
                                 <label for="chk_all">전체 약관 동의</label>
@@ -201,7 +204,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                         </form>
                             <div class="modalButtonBox">
                                 <button class="cancelButton">취소</button>
-                                <button type="submit" value="다음" id="btn_submit" class="nextButton">다음</button>
+                                <button type="submit" value="다음" id="btn_submit" class="nextButton" onclick="return fregister_submit(this);">다음</button>
                             </div>
                     </div>
                 </div>
@@ -226,8 +229,8 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="text" name="userId" value id="reg_userId" required class="reg_input" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자.">
-                                                <input type="button" class="btn_frmline" name="userId" id="reg_userId_chk" value="중복체크">
+                                                <input type="text" name="userId" value id="reg_userId" required class="userId" minlength="4" maxlength="20" placeholder="영문소문자/숫자, 3~20자." style="padding: 0; width: 35%; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
+                                                <input type="button" class="btn_frmline" name="userId" id="reg_userId_chk" value="중복체크" onsubmit="idCheck()">
                                                 <div><span id="result_checkId" style="font-size: 12px"></span></div>
                                             </td>
                                         </tr>
@@ -238,17 +241,18 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="password" name="userPwd" value id="reg_userPwd" required class="reg_input" minlength="4" maxlength="20">
+                                                <input type="password" name="userPwd" value id="reg_userPwd" required class="userPwd" minlength="4" maxlength="20" style="padding: 0; width: 35%; height: 40px; color: #444; background-color: white; border: 0; border-bottom: 1px solid #656565; vertical-align: top; box-shadow: none; outline: none;">
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                <label th:for="userPwd" class="req">
+                                                <label class="req">
                                                     PASSWORD 확인
                                                 </label>
                                             </th>
                                             <td>
-<!--                                                <input type="password" name="userPwd" value id="reg_userPwd_re" required class="reg_input" minlength="3" maxlength="20">-->
+                                                <input type="password" name="userPwd" value id="reg_userPwd_re" required class="reg_input" minlength="3" maxlength="20">
+                                                <div><span class="pwchk"></span></div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -269,7 +273,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                             </th>
                                             <td>
                                                 <div class="userPhone_wrap">
-                                                    <input type="tel" name="userPhone" value id="reg_userPhone" required class="reg_input" placeholder="010-0000-0000 형식으로 입력해주세요.">
+                                                    <input type="tel" name="userPhone" value id="reg_userPhone" required class="reg_input" placeholder="ex) 010-0000-0000">
                                                 </div>
                                             </td>
                                         </tr>
@@ -290,17 +294,12 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                                                 </label>
                                             </th>
                                             <td>
-                                                <input type="text" name="userAddress" value id="reg_userAddress" required class="reg_input" maxlength="6" placeholder="우편번호">
-                                                <button type="button" class="btn_frmline">주소검색</button>
+                                                <input type="text" name="userAddress" value id="sample4_postcode" required class="reg_input" maxlength="6" placeholder="우편번호">
+                                                <button type="button" class="btn_frmline" onclick="sample4_execDaumPostcode()">주소검색</button>
                                                 <br>
-                                                <input type="text" name="userAddress" value id="reg_userAddress1" required class="reg_input" placeholder="기본주소">
-                                                <label for="reg_userAddress1" class="sound_only">
-                                                    기본주소
-                                                    <strong>필수</strong>
-                                                </label>
+                                                <input type="text" name="userAddress" value id="sample4_roadAddress" required class="reg_input" placeholder="도로명주소">
                                                 <br>
-                                                <input type="text" name="userAddress" value id="reg_userAddress2" required class="reg_input" placeholder="상세주소">
-                                                <label for="reg_userAddress2" class="sound_only">상세주소</label>
+                                                <input type="text" name="userAddress" value id="sample4_detailAddress" required class="reg_input" placeholder="상세주소">
                                             </td>
                                         </tr>
                                         <tr>
@@ -338,17 +337,15 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="buttonBox3">
-                    <div class="modalContainer3">
-                        <div class="modalContent3">
-                            <div class="modalHeader">
-                                <img src="/images/chk2.png" class="endImg">
-                            </div>
-                            <p class="des7">회원 가입 신청이 완료되었습니다.</p>
-                            <p class="des8">Gym家에서 검토 / 승인 후 <br> 로그인 가능합니다. </p>
+            <div class="buttonBox3">
+                <div class="modalContainer3">
+                    <div class="modalContent3">
+                        <div class="modalHeader3">
+                            <img src="/images/chk2.png" class="endImg">
                         </div>
-                        <button class="escButton" id="btn_submit4">닫기</button>
+                        <p class="des7">회원 가입 신청이 완료되었습니다.</p>
+                        <p class="des8">Gym家에서 검토 / 승인 후 <br> 로그인 가능합니다. </p>
+                    <button class="escButton" id="btn_submit4">닫기</button>
                     </div>
                 </div>
             </div>
@@ -364,7 +361,7 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!-- 계정만들기 클릭 시 나타나는 모달 창 -->
 <script>
     $(document).ready(function() {
@@ -377,9 +374,13 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
         $(".cancelButton").click(function() {
             $(this).closest(".modalContainer").hide();
         });
+
+        $(".escButton").click(function () {
+            $(this).closest(".modalContainer3").hide();
+        })
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function (){
         var nextButton = document.getElementById("btn_submit");
@@ -405,12 +406,14 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
         var checkButton = document.getElementById("btn_submit3");
 
         checkButton.addEventListener("click", function () {
+            var modalContainer2 = document.querySelector(".modalContainer2");
+            modalContainer2.style.display = "none";
+
             var modalContainer3 = document.querySelector(".modalContainer3");
-            modalContainer3.style.display = "none";
-        })
+            modalContainer3.style.display = "block";
+        });
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 이용약관 클릭 스크립트 -->
 <script>
     function fregister_submit(f)
@@ -439,32 +442,91 @@ Gym 家 사이트에서는 개인정보의 취급위탁은 하지 않고 있으�
         });
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 아이디 중복확인 -->
 <script>
-    $(function () {
+     var idCheck = function (){
+         var userId = $('.userId').val();
 
-        $("#reg_userId_chk").click(function () {
-            let reg_userId = $("#reg_userId").val();
-
-            $.ajax({
-                type:'post',
-                url:"/idCheck",
-                data: {"reg_userId":reg_userId},
-                success: function (data) {
-                    if (data == "N") {
-                        result = "사용 가능한 아이디입니다.";
-                        $("#result_checkId").html(result).css("color", "blue");
-                        $("#reg_userPwd").trigger("focus");
-                    } else {
-                        result = "이미 사용중인 아이디입니다.";
-                        $("#result_checkId").html(result).css("color","red");
-                        $("#reg_userId").val("").trigger("focus");
-                    }
-                },
-                error : function (){alert("서버 요청 실패");}
-            });
+             $.ajax({
+                 type:'POST',
+                 url:"/login/idCheck",
+                 data: {"userId": userId},
+                 success: function (data) {
+                     if (data == 0) {
+                         result = "사용 가능한 아이디입니다.";
+                         $("#result_checkId").html(result).css("color", "blue");
+                     } else {
+                         result = "이미 사용중인 아이디입니다.";
+                         $("#result_checkId").html(result).css("color","red");
+                     }
+                 },
+                 error : function (){alert("서버 요청 실패");}
+             });
+     }
+</script>
+<!-- 비밀번호 중복확인 -->
+<script>
+    $(document).ready(function (){
+        $('#reg_userPwd_re').blur(function (){
+            if (!$('#reg_userPwd_re').val()) {
+                $('.pwchk').html("비밀번호를 한번 더 입력해주세요.").css('color', 'red');
+            } else if ($('#reg_userPwd_re').val() != $('.userPwd').val()) {
+                $('.pwchk').html("비밀번호가 일치하지 않습니다.").css('color', 'red');
+                $('#reg_userPwd_re').val("");
+            } else {
+                $('.pwchk').html("비밀번호가 일치합니다.").css('color', 'green')
+            }
         });
-    });
+    })
+</script>
+<!-- 주소 검색 -->
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    // guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    // guideTextBox.style.display = 'block';
+                } else {
+                    // guideTextBox.innerHTML = '';
+                    // guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
 </script>
 </body>
 </html>
