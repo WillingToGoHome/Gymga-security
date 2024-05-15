@@ -9,6 +9,7 @@
         <result property="userId" column="USER_ID"/>
         <result property="userPwd" column="USER_PWD"/>
         <result property="userName" column="USER_NAME"/>
+        <result property="userPhone" column="USER_PHONE"/>
         <result property="userRole" column="USER_ROLE"/>
     </resultMap>
 
@@ -18,6 +19,7 @@
         ,   USER_ID
         ,   USER_PWD
         ,   USER_NAME
+        ,   USER_PHONE
         ,   USER_ROLE
         FROM    USERDB
         WHERE USER_ID = #{ username }
@@ -53,5 +55,19 @@
         SELECT COUNT(*)
         FROM USERDB
         WHERE USERID = #{userId}
+    </select>
+
+    <!-- 아이디 찾기 -->
+    <select id="find_id" resultType="String">
+        SELECT USER_ID
+        FROM USERDB
+        WHERE USER_NAME = #{userName} and USER_PHONE = #{userPhone}
+    </select>
+
+    <!-- 비밀번호 찾기 -->
+    <select id="find_pwd" resultType="String">
+        SELECT USER_PWD
+        FROM USERDB
+        WHERE USER_ID = #{userId} and USER_PHONE = #{userPhone}
     </select>
 </mapper>

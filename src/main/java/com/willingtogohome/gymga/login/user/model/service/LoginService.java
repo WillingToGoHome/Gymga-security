@@ -44,4 +44,25 @@ public class LoginService {
     }
 
 
+    public String find_id(String userName, String userPhone) {
+        String result = "";
+
+        try {
+            result = loginMapper.find_id(userName, userPhone);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String find_pwd(String userId, String userPhone) {
+        String result = "";
+
+        try {
+            result = loginMapper.find_pwd(userId, userPhone);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

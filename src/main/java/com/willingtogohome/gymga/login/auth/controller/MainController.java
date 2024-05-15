@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -42,20 +39,9 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping(value = "/login/auth/find")
-    public void find(){}
+//    @GetMapping(value = "/login/auth/find")
+//    public void find(){}
 
-
-
-//    @GetMapping("/user/user")
-//    public String userPage(){
-//        return "login/user/user";
-//    }
-//
-//    @GetMapping("/admin/admin")
-//    public String adminPage(){
-//        return "login/admin/admin";
-//    }
 
 
 }

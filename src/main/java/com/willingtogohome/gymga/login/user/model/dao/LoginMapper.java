@@ -3,6 +3,7 @@ package com.willingtogohome.gymga.login.user.model.dao;
 import com.willingtogohome.gymga.login.user.model.dto.LoginDTO;
 import com.willingtogohome.gymga.login.user.model.dto.RegistDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,12 @@ public interface LoginMapper {
 
     /* 아이디 찾아서 로그인 */
     LoginDTO findByUsername(String username);
+
+    /* 아이디 찾기 */
+    String find_id(String userName, String userPhone);
+
+    /* 비밀번호 찾기 */
+    String find_pwd(String userId, String userPhone);
 
 
     /* 아이디 중복체크 */
