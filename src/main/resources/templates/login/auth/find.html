@@ -11,16 +11,18 @@
             <div class="findHeader">
                 <div class="headerBox">
                         <img src="/img/findBack.png">
-                    <div class="logo">
+                    <a href="/login" class="logo">
                         <p class="logo1">Gym</p>
                         <p class="logo2">家</p>
-                    </div>
+                    </a>
                         <h3 class="findIdPwd">아이디 / 비밀번호 찾기</h3>
                 </div>
             </div>
 
             <form id="findForm" name="findForm" th:action="@{/auth/find}" method="post">
                 <div class="form-group">
+                    <p class="des1"> 가입 시 등록한 정보를 입력해주세요</p>
+                    <hr style="width: 1015px;">
                     <div class="findOption">
                         <div class="findId">
                             <input type="radio" class="controlInput" id="search_1" name="search_total" onclick="search_check(1)" checked>
@@ -31,17 +33,15 @@
                             <label class="controlLabel" for="search_2">비밀번호찾기</label>
                         </div>
                     </div>
-                    <p class="des1"> 가입 시 등록한 정보를 입력해주세요</p>
-                    <hr>
                     <div id="searchI">
                         <label th:for="userName" class="userName" >
                             이름
-                        </label>
+                        </label><br>
                         <input type="text" name="userName" id="userName" class="name1" required><br>
                         <label th:for="userPhone" class="userPhone">
                             휴대폰번호
-                        </label>
-                        <input type="tel" name="userPhone" class="phone1" id="userPhone" required><br>
+                        </label><br>
+                        <input type="tel" name="userPhone" class="phone1" id="userPhone" placeholder="ex) 010-0000-0000" required><br>
                         <div class="form-group">
                             <button type="button" class="findIdBtn" id="find_id" onclick="idSearch_click()">아이디 찾기</button>
                         </div>
@@ -49,12 +49,12 @@
                     <div id="searchP" style="display: none">
                         <label th:for="userId" class="userId">
                             아이디
-                        </label>
+                        </label><br>
                         <input type="text" name="userId" id="userId" class="id1" required><br>
                         <label th:for="userPhone_2" class="userPhone">
                             휴대폰번호
-                        </label>
-                        <input type="tel" name="userPhone_2" id="userPhone_2" class="phone2" required><br>
+                        </label><br>
+                        <input type="tel" name="userPhone_2" id="userPhone_2" class="phone2" placeholder="ex) 010-0000-0000" required><br>
                         <div class="form-group">
                             <button type="button" class="findPwdBtn" id="find_pwd" onclick="pwdSearch_click()">비밀번호 찾기</button>
                         </div>
@@ -65,12 +65,12 @@
                 <div class="modalContainer" style="display: none">
                     <div class="modalContent">
                         <div class="textBox">
-                            <h2>아이디 조회결과</h2>
+                            <h2 class="result">아이디 조회결과</h2>
                                 <div id="id_value"></div>
                         </div>
                         <div class="modalButtonBox">
                             <button type="button" class="escButton">닫기</button>
-                            <a href="/login">로그인하기</a>
+                            <a href="/login" class="goLog">로그인하기</a>
                         </div>
                     </div>
                 </div>
@@ -79,12 +79,12 @@
                 <div class="modalContainer2" style="display: none">
                     <div class="modalContent2">
                         <div class="textBox2">
-                            <h2>비밀번호 조회결과</h2>
+                            <h2 class="result">비밀번호 조회결과</h2>
                             <div id="pwd_value"></div>
                         </div>
                         <div class="modalButtonBox2">
                             <button type="button" class="escButton2">닫기</button>
-                            <a href="/login">로그인하기</a>
+                            <a href="/login" class="goLog">로그인하기</a>
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                 if (data == 0) {
                     $('#id_value').text("회원 정보가 없습니다.");
                 } else {
-                    $('#id_value').text(data);
+                    $('#id_value').text(data + " 입니다.");
                     console.log(data)
                 }
                 $(".modalContainer").show();

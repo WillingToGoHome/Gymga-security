@@ -19,11 +19,18 @@ body {
     top: 5%;
     margin-left: 5%;
     display: flex;
+    text-decoration: none;
 }
+
+.logo:hover {
+    color: white;
+}
+
 
 .logo1 {
     font-size: 2vw;
     font-weight: bold;
+    color: white;
 }
 
 .logo2 {
@@ -37,7 +44,7 @@ body {
     justify-content: center;
     align-items: center;
     color: #4B82D8;
-    margin-left: 1%;
+    margin-left: 8px;
 }
 
 .headerBox {
@@ -71,7 +78,7 @@ body {
 .modalContent {
     background-color: #FFFFFF;
     width: 50%;
-    height: 80%;
+    height: 30%;
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -92,7 +99,7 @@ body {
 .modalContent2 {
     background-color: #FFFFFF;
     width: 50%;
-    height: 80%;
+    height: 30%;
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -102,15 +109,179 @@ body {
 
 #findForm {
     position: absolute;
-    margin-left: 45%;
-    margin-top: 5%;
+    margin-left: 20%;
+    margin-top: 40px;
 }
 
 .findOption {
+    margin-top: 5%;
     display: flex;
+    position: absolute;
+    left: 55%;
+    transform: translate(-50%, -50%);
 }
 
 .findId,
 .findPwd {
     margin-right: 10px; /* 두 요소 사이의 간격을 조정할 수 있습니다. */
 }
+
+#search_1 {
+    cursor: pointer;
+}
+
+#search_2 {
+    cursor: pointer;
+}
+
+.des1 {
+    font-size: 20pt;
+    margin-bottom: 40px;
+}
+
+#searchI{
+    margin-top: 10%;
+    margin-left: 40%;
+}
+
+.name1 {
+    margin-top: 10px;
+    width: 304px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ABABAB;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.phone1 {
+    margin-top: 10px;
+    width: 304px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ABABAB;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+#find_id {
+    margin-top: 10px;
+    width: 319px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid #4B82D8;
+    background-color: #4B82D8;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#searchP {
+    margin-top: 10%;
+    margin-left: 40%;
+}
+
+.id1 {
+    margin-top: 10px;
+    width: 304px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ABABAB;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.phone2 {
+    margin-top: 10px;
+    width: 304px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ABABAB;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+#find_pwd {
+    margin-top: 10px;
+    width: 319px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid #4B82D8;
+    background-color: #4B82D8;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.result {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#id_value {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+#pwd_value {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.modalButtonBox {
+    display: flex;
+    align-items: center;
+    width: 290px;
+    height: 40px;
+    justify-content: space-around;
+    margin-top: 2%;
+    margin-left: 35%;
+}
+
+.modalButtonBox2 {
+    display: flex;
+    align-items: center;
+    width: 290px;
+    height: 40px;
+    justify-content: space-around;
+    margin-top: 2%;
+    margin-left: 35%;
+}
+
+.escButton {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.escButton2 {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    color: #4B82D8;
+    border: 1px solid #4B82D8;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.goLog {
+    width: 128px;
+    height: 29px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: 1px solid #4B82D8;
+    background-color: #4B82D8;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 9px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
