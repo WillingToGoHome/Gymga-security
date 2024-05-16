@@ -5,8 +5,9 @@ body {
 }
 
 .findBox{
-    display: flex;
-    width: 1920px;
+    height: 100%;
+    margin: 0 auto;
+    margin-left: 110px;
 }
 
 .headerBox {
@@ -141,7 +142,7 @@ body {
 
 #searchI{
     margin-top: 10%;
-    margin-left: 40%;
+    margin-left: 39%;
 }
 
 .name1 {
@@ -178,7 +179,7 @@ body {
 
 #searchP {
     margin-top: 10%;
-    margin-left: 40%;
+    margin-left: 39%;
 }
 
 .id1 {
